@@ -1,0 +1,6 @@
+C:\James Stuff\VS2013 VERSION\UpdateNIID.Web\bin\UpdateNIID.Web.dll.config
+C:\James Stuff\VS2013 VERSION\UpdateNIID.Web\bin\UpdateNIID.Web.dll
+C:\James Stuff\VS2013 VERSION\UpdateNIID.Web\bin\UpdateNIID.Web.pdb
+C:\James Stuff\VS2013 VERSION\UpdateNIID.Web\obj\Debug\UpdateNIID.Web.csprojResolveAssemblyReference.cache
+C:\James Stuff\VS2013 VERSION\UpdateNIID.Web\obj\Debug\UpdateNIID.Web.dll
+C:\James Stuff\VS2013 VERSION\UpdateNIID.Web\obj\Debug\UpdateNIID.Web.pdb
