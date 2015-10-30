@@ -184,7 +184,28 @@ namespace UpdateNIID.Data
             }
         }
 
+        public void Update1(string _polyNo)
+        {
+            using (var session = GetSession())
+            {
 
+                using (var trans = session.BeginTransaction())
+                {
+                    //MotorDetailsOnline saveObj = null;
+                    var search = GetByPolicyNo(_polyNo);
+                    if (search != null)
+                    {
+                        search.Status = "A";
+
+                        session.FlushMode = FlushMode.Commit;
+                        session.SaveOrUpdate(search);
+                        trans.Commit();
+                        session.Flush();
+                    }
+                    //}
+                }
+            }
+        }
 
         public int NetworkStatus()
         {
