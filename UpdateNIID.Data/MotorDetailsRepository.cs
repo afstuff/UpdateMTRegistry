@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Text;
 using UpdateNIID.Model;
 using UpdateNIID.Repositories;
@@ -10,6 +13,7 @@ namespace UpdateNIID.Data
 {
     public class MotorDetailsRepository : IABSDataRepository
     {
+
         private static ISession GetSession()
         {
             return SessionProvider.SessionFactory.OpenSession();
@@ -42,15 +46,32 @@ namespace UpdateNIID.Data
         }
         public IList<MotorDetailsOnline> MotorDetails()
         {
-            using (var session = GetSession())
+            try
             {
-                var pDet = session.CreateCriteria<MotorDetailsOnline>()
+                using (var session = GetSession())
+                {
+                    if (session != null)
+                    {
+                        var pDet = session.CreateCriteria<MotorDetailsOnline>()
 
-                                     .List<MotorDetailsOnline>();
+                            .List<MotorDetailsOnline>();
 
-                return pDet;
+                        return pDet;
+                    }
+                    return null;
+                }
             }
+            catch (Exception nex)
+            {
+                //string k = nex.InnerException.Message;
+
+                return null;
+
+            }
+
         }
+
+
         public MotorDetailsOnline GetById(Int32? id)
         {
             using (var session = GetSession())
@@ -76,11 +97,116 @@ namespace UpdateNIID.Data
 
         public void MoveData(MotorDetailsOnline md)
         {
-            
+
         }
-        public void createSchema() {
+        public void createSchema()
+        {
             SessionProvider.RebuildSchema();
         }
+
+
+
+        private static DataTable GetDataTable(string qry)
+        {
+            try
+            {
+                using (var session = GetSession())
+                {
+                    using (var conn = session.Connection as SqlConnection)
+                    {
+                        var adapter = new SqlDataAdapter(qry, conn);
+                        var dataSet = new System.Data.DataSet();
+
+                        adapter.Fill(dataSet);
+                        DataTable dt = dataSet.Tables[0];
+
+                        return dt;
+                    }
+                }
+            }
+            catch (Exception nex)
+            {
+                //string k = nex.InnerException.Message;
+
+                return null;
+
+            }
+
+        }
+
+        public DataTable GetMotorDetailsDt(string startDate, string endDate)
+        {
+            //queries the generic admincodes table and extract info for the vehicles only
+            string query = "SELECT * "
+                          + "FROM NIID_MotorDetails_Online where NIID_ProcessDate BETWEEN '" + startDate + "' AND '" + endDate + "'";
+
+            return GetDataTable(query);
+        }
+
+        public DataTable GetMotorDetailsAllDt()
+        {
+            //queries the generic admincodes table and extract info for the vehicles only
+            string query = "SELECT * "
+                          + "FROM NIID_MotorDetails_Online";
+
+            return GetDataTable(query);
+        }
+
+        public MotorDetailsOnline GetByPolicyNo(string _polyNo)
+        {
+            using (var session = GetSession())
+            {
+                return session.CreateCriteria<MotorDetailsOnline>().List<MotorDetailsOnline>().Where(c => c.PolicyNo == _polyNo).FirstOrDefault();
+
+            }
+        }
+
+        public void Update(string _polyNo)
+        {
+            using (var session = GetSession())
+            {
+
+                using (var trans = session.BeginTransaction())
+                {
+                    //MotorDetailsOnline saveObj = null;
+                    var search = GetByPolicyNo(_polyNo);
+                    if (search != null)
+                    {
+                        search.Status = "X";
+
+                        session.FlushMode = FlushMode.Commit;
+                        session.SaveOrUpdate(search);
+                        trans.Commit();
+                        session.Flush();
+                    }
+                    //}
+                }
+            }
+        }
+
+
+
+        public int NetworkStatus()
+        {
+            try
+            {
+                MotorDetailsOnline md = GetById(1);
+            }
+            catch (NetworkInformationException v)
+            {
+
+                string d = v.Message;
+                return 0;
+            }
+            catch (Exception y)
+            {
+
+                //string k = y.InnerException.Message;
+                return 0;
+            }
+            return 1;
+        }
+
 
     }
 }
