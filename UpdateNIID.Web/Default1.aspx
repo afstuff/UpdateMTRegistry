@@ -91,6 +91,7 @@
                         <asp:GridView ID="GridView1" runat="server" CaptionAlign="Left" CellPadding="10" ForeColor="#333333" GridLines="None" Width="100%" AutoGenerateColumns="False"
                             EmptyDataText="No data available." Font-Names="Century Gothic" Font-Size="11pt" HorizontalAlign="Left" OnPageIndexChanging="GridView1_PageIndexChanging" AllowPaging="True" OnRowDataBound="GridView1_RowDataBound" DataKeyNames="NIID_NO">
                             <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" Font-Names="Century Gothic" Font-Size="10pt" />
+                            <PagerSettings PageButtonCount="5" />
                             <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
                             <RowStyle BackColor="#EFF3FB" Font-Size="11pt" />
                             <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" ForeColor="#333333" />
