@@ -196,6 +196,15 @@ namespace UpdateNIID.Web
                     motorsRepo.Update1(rVal);
                 }
             }
+
+            if (txtStartDate.Text != "" && txtEndDate.Text != "")
+            {
+                GetVehicleDateails(CheckDate(txtStartDate.Text), CheckDate(txtEndDate.Text));
+            }
+            else
+            {
+                GetVehicleDateailsAll();
+            }
         }
 
 
