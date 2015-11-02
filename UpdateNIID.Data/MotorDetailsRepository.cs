@@ -152,16 +152,16 @@ namespace UpdateNIID.Data
             return GetDataTable(query);
         }
 
-        public MotorDetailsOnline GetByPolicyNo(string _polyNo)
+        public MotorDetailsOnline GetByPolicyNo(int _polyNo)
         {
             using (var session = GetSession())
             {
-                return session.CreateCriteria<MotorDetailsOnline>().List<MotorDetailsOnline>().Where(c => c.PolicyNo == _polyNo).FirstOrDefault();
+                return session.CreateCriteria<MotorDetailsOnline>().List<MotorDetailsOnline>().Where(c => c.mId == _polyNo).FirstOrDefault();
 
             }
         }
 
-        public void Update(string _polyNo)
+        public void Update(int _polyNo)
         {
             using (var session = GetSession())
             {
@@ -184,7 +184,7 @@ namespace UpdateNIID.Data
             }
         }
 
-        public void Update1(string _polyNo)
+        public void Update1(int _polyNo)
         {
             using (var session = GetSession())
             {

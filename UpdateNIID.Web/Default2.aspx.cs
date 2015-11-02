@@ -7,12 +7,12 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using UpdateNIID.Data;
 
-namespace UpdateNIID.Web
+namespace NIID_WEB
 {
-    public partial class Default1 : System.Web.UI.Page
+    public partial class _Default : System.Web.UI.Page
     {
-        MotorDetailsRepository motorsRepo = new MotorDetailsRepository();
-        private DataTable _dt = null;
+        MotorDetailsRepository _mRepository = new MotorDetailsRepository();
+        public DataTable Dt = null;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -21,7 +21,7 @@ namespace UpdateNIID.Web
             {
                 //check connection
 
-                int r = motorsRepo.NetworkStatus();
+                int r = _mRepository.NetworkStatus();
                 if (r == 0)
                 {
                     onlineLbl.Text = "Offline";
@@ -35,9 +35,9 @@ namespace UpdateNIID.Web
                     statusImg.Height = 60;
                 }
 
+                var today = DateTime.Now.Date.ToString("yyyy-mm-dd");
                 GetVehicleDateailsAll();
-
-
+                
             }
 
 
@@ -52,7 +52,7 @@ namespace UpdateNIID.Web
             else
             {
                 GetVehicleDateailsAll();
-                this.DataBind();
+
             }
         }
 
@@ -60,16 +60,16 @@ namespace UpdateNIID.Web
         {
             if (txtStartDate.Text != "" && txtEndDate.Text != "")
             {
-                _dt = new DataTable();
-                _dt = motorsRepo.GetMotorDetailsDt(CheckDate(txtStartDate.Text), CheckDate(txtEndDate.Text));
+                Dt = new DataTable();
+                Dt = _mRepository.GetMotorDetailsDt(CheckDate(txtStartDate.Text), CheckDate(txtEndDate.Text));
 
                 int cU = 0;
                 int cP = 0;
-                if (_dt != null)
+                if (Dt != null)
                 {
-                    cP = _dt.Rows.Count;
+                    cP = Dt.Rows.Count;
                     lblPosted.Text = cP.ToString();
-                    foreach (DataRow row in _dt.Rows)
+                    foreach (DataRow row in Dt.Rows)
                     {
                         var cUText = row["NIID_Status"].ToString();
                         if (cUText == "P")
@@ -80,9 +80,8 @@ namespace UpdateNIID.Web
                     lblUploaded.Text = cU.ToString();
 
 
-                    GridView1.DataSource = _dt;
+                    GridView1.DataSource = Dt;
                     GridView1.DataBind();
-                    //GridView1.Columns[1].Visible = false;
                 }
             }
         }
@@ -103,54 +102,35 @@ namespace UpdateNIID.Web
             {
                 GetVehicleDateails(CheckDate(txtStartDate.Text), CheckDate(txtEndDate.Text));
             }
-            else
-            {
-                GetVehicleDateailsAll();
-            }
         }
 
         protected void GetVehicleDateails(string sDate, string eDate)
         {
-            _dt = new DataTable();
-            _dt = motorsRepo.GetMotorDetailsDt(sDate, eDate);
+            Dt = new DataTable();
+            Dt = _mRepository.GetMotorDetailsDt(sDate, eDate);
 
             int cU = 0;
             int cP = 0;
 
-            if (_dt != null)
+            if (Dt != null)
             {
-                GridView1.DataSource = _dt;
+                GridView1.DataSource = Dt;
                 GridView1.DataBind();
-                //GridView1.Columns[1].Visible = false;
             }
         }
 
         protected void GetVehicleDateailsAll()
         {
-            _dt = new DataTable();
-            _dt = motorsRepo.GetMotorDetailsAllDt();
+            Dt = new DataTable();
+            Dt = _mRepository.GetMotorDetailsAllDt();
 
             int cU = 0;
             int cP = 0;
 
-            if (_dt != null)
+            if (Dt != null)
             {
-                cP = _dt.Rows.Count;
-                lblPosted.Text = cP.ToString();
-                foreach (DataRow row in _dt.Rows)
-                {
-                    var cUText = row["NIID_Status"].ToString();
-                    if (cUText == "P")
-                    {
-                        cU++;
-                    }
-                }
-                lblUploaded.Text = cU.ToString();
-
-
-                GridView1.DataSource = _dt;
+                GridView1.DataSource = Dt;
                 GridView1.DataBind();
-                //GridView1.Columns[1].Visible = false;
             }
         }
 
@@ -180,24 +160,19 @@ namespace UpdateNIID.Web
             for (int i = 0; i < GridView1.Rows.Count; i++)
             {
                 CheckBox cbx = GridView1.Rows[i].Cells[1].FindControl("chkSel") as CheckBox;
-
-                HiddenField hd = GridView1.Rows[i].FindControl("Id_No") as HiddenField;
-                //var rVal = GridView1.Rows[i].Cells[1].Text;
-                var rVal = Convert.ToInt16(hd.Value.ToString());
-                if (cbx.Enabled && !cbx.Checked)
+                var rVal = GridView1.Rows[i].Cells[1].Text;
+                if (!cbx.Checked)
                 {
                     //update db
-                    motorsRepo.Update(rVal);
+                    _mRepository.Update(rVal);
                 }
 
-                if (cbx.Enabled && cbx.Checked)
+                if (cbx.Checked && cbx.Enabled)
                 {
                     //update db
-                    motorsRepo.Update1(rVal);
+                    _mRepository.Update1(rVal);
                 }
             }
         }
-
-
     }
 }

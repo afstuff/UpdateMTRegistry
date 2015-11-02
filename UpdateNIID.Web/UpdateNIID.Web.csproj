@@ -105,7 +105,6 @@
     <Content Include="Images\Setting.png" />
     <Content Include="Images\t_light_0.png" />
     <Content Include="Images\t_light_1.png" />
-    <Content Include="niid.aspx" />
     <Content Include="Scripts\bootstrap-datetimepicker.js" />
     <Content Include="Scripts\bootstrap-datetimepicker.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -134,18 +133,11 @@
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
     <Compile Include="Default1.aspx.cs">
-      <SubType>ASPXCodeBehind</SubType>
       <DependentUpon>Default1.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Default1.aspx.designer.cs">
       <DependentUpon>Default1.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="niid.aspx.cs">
-      <DependentUpon>niid.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="niid.aspx.designer.cs">
-      <DependentUpon>niid.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

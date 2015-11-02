@@ -1,8 +1,8 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Default1.aspx.cs" Inherits="UpdateNIID.Web.Default1" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Default2.aspx.cs" Inherits="NIID_WEB._Default" %>
 
-<!DOCTYPE html>
+<!DOCTYPE >
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 <head runat="server">
     <title>NIID</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -15,8 +15,6 @@
 </head>
 <body style="background-color: #f5f5f4;">
     <form id="form1" runat="server">
-        <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
-
         <div class="container">
             <div class="row bg-danger" style="-ms-border-radius: 5px !important; border-radius: 0 0 5px 5px !important; top: 0 !important;">
                 <div class="col-lg-12" style="padding: 15px;">
@@ -31,8 +29,8 @@
                     <span class="btn btn-sm btn-default">NIID Status:
                                 <asp:Label ID="onlineLbl" runat="server" Text=""></asp:Label>
                     </span>
-                    <asp:Image ID="statusImg" runat="server" />
-
+                    <asp:Image ID="statusImg" runat="server"  />
+                    
                     <div class="btn-group">
                         <button class="btn btn-sm btn-default">
                             No of Records Posted: <span class="badge">
@@ -45,8 +43,8 @@
                             </span>
                         </button>
                     </div>
-
-
+                    
+                    
 
                     <span class="btn btn-sm btn-primary pull-right">Today: 
                     <%
@@ -57,14 +55,14 @@
                 </div>
             </div>
             <br />
-
+          
         </div>
         <br />
         <div class="container">
             <div class="row">
                 <div class="pull-left col-md-6">
                     <asp:Label runat="server" Text="Show:"></asp:Label>
-
+                    
                     <asp:RadioButtonList ID="RadioButtonList1" runat="server" AutoPostBack="True" RepeatDirection="Horizontal">
                         <asp:ListItem Selected="True" Value="0">All&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;</asp:ListItem>
                         <asp:ListItem Value="1">Successful&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;</asp:ListItem>
@@ -77,6 +75,7 @@
                         <asp:TextBox ID="txtStartDate" placeholder="Start Date" class="form-control small" runat="server" Width="100px"></asp:TextBox>
                         <asp:TextBox ID="txtEndDate" placeholder="End Date" class="form-control small" runat="server" Width="100px"></asp:TextBox>
                         <asp:Button ID="searchBtn" runat="server" Text="Search" class="btn btn-sm btn-danger" OnClick="DoSearch" />
+                        <%--<button class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-search"></i>Go</button> OnClick="GetVehicleDateails(txtStartDate, txtEndDate)" --%>
                     </div>
 
                 </div>
@@ -86,10 +85,11 @@
         <%-- <br />--%>
         <div class="container" style="margin-top: 30px">
             <div class="row">
+                <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
                 <asp:UpdatePanel runat="server" ID="UpdatePanel1">
                     <ContentTemplate>
                         <asp:GridView ID="GridView1" runat="server" CaptionAlign="Left" CellPadding="10" ForeColor="#333333" GridLines="None" Width="100%" AutoGenerateColumns="False"
-                            EmptyDataText="No data available." Font-Names="Century Gothic" Font-Size="11pt" HorizontalAlign="Left" OnPageIndexChanging="GridView1_PageIndexChanging" AllowPaging="True" OnRowDataBound="GridView1_RowDataBound" DataKeyNames="NIID_NO">
+                            EmptyDataText="No data available." Font-Names="Century Gothic" Font-Size="11pt" HorizontalAlign="Left" OnPageIndexChanging="GridView1_PageIndexChanging" AllowPaging="True" OnRowDataBound="GridView1_RowDataBound">
                             <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" Font-Names="Century Gothic" Font-Size="10pt" />
                             <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
                             <RowStyle BackColor="#EFF3FB" Font-Size="11pt" />
@@ -99,9 +99,6 @@
                                 <asp:TemplateField>
                                     <ItemTemplate>
                                         <asp:CheckBox ID="chkSel" runat="server" Style="margin: 10px!important;"></asp:CheckBox>
-                                   <%-- </ItemTemplate>
-                                    <ItemTemplate>--%>
-                                        <asp:HiddenField ID="Id_No" Value='<%# Eval("NIID_NO") %>' runat="server" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:BoundField HeaderText="Policy #" DataField="NIID_PolicyNo" />
@@ -119,7 +116,8 @@
                             <RowStyle Font-Names="century gothic" Font-Size="10pt" Height="25px" HorizontalAlign="Left" VerticalAlign="Middle"></RowStyle>
                             <SelectedRowStyle BackColor="LightCyan" ForeColor="DarkBlue" Font-Bold="true" />
                         </asp:GridView>
-                        <asp:Timer ID="Timer1" runat="server" Interval="60000" OnTick="Timer1_Tick" Enabled="False" />
+
+                        <asp:Timer ID="Timer1" runat="server" Interval="10000" OnTick="Timer1_Tick" Enabled="False" />
                     </ContentTemplate>
                 </asp:UpdatePanel>
                 <asp:UpdateProgress ID="UpdateProgress1" runat="server"
@@ -141,3 +139,6 @@
     </form>
 </body>
 </html>
+
+
+

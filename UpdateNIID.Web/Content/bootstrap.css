@@ -6564,6 +6564,8 @@ button.close {
 }
 .pull-left {
   float: left !important;
+    height: 23px;
+    width: 262px;
 }
 .hide {
   display: none !important;
