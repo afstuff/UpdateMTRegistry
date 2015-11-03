@@ -134,11 +134,23 @@ namespace UpdateNIID.Data
 
         }
 
-        public DataTable GetMotorDetailsDt(string startDate, string endDate)
+        public DataTable GetMotorDetailsDt(string startDate, string endDate, string status)
         {
-            //queries the generic admincodes table and extract info for the vehicles only
-            string query = "SELECT * "
-                          + "FROM NIID_MotorDetails_Online where NIID_ProcessDate BETWEEN '" + startDate + "' AND '" + endDate + "'";
+            string query;
+            if (status == "S")
+            {
+                query = "SELECT * FROM NIID_MotorDetails_Online where (NIID_Status = 'P' ) AND (NIID_ProcessDate BETWEEN '" + startDate + "' AND '" + endDate + "')";
+
+            }
+            else if (status == "F")
+            {
+                query = "SELECT * FROM NIID_MotorDetails_Online where (NIID_Status = 'A' ) AND (NIID_ProcessDate BETWEEN '" + startDate + "' AND '" + endDate + "')";
+            }
+            else
+            {
+                query = "SELECT * FROM NIID_MotorDetails_Online where NIID_ProcessDate BETWEEN '" + startDate + "' AND '" + endDate + "'";
+
+            }
 
             return GetDataTable(query);
         }

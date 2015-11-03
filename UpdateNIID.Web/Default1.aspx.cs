@@ -47,7 +47,7 @@ namespace UpdateNIID.Web
         {
             if (txtStartDate.Text != "" && txtEndDate.Text != "")
             {
-                GetVehicleDateails(txtStartDate.Text.ToString(), txtEndDate.Text.ToString());
+                GetVehicleDateails(CheckDate(txtStartDate.Text), CheckDate(txtEndDate.Text), RadioButtonList1.SelectedValue);
             }
             else
             {
@@ -61,7 +61,7 @@ namespace UpdateNIID.Web
             if (txtStartDate.Text != "" && txtEndDate.Text != "")
             {
                 _dt = new DataTable();
-                _dt = motorsRepo.GetMotorDetailsDt(CheckDate(txtStartDate.Text), CheckDate(txtEndDate.Text));
+                _dt = motorsRepo.GetMotorDetailsDt(CheckDate(txtStartDate.Text), CheckDate(txtEndDate.Text), RadioButtonList1.SelectedValue);
 
                 int cU = 0;
                 int cP = 0;
@@ -101,7 +101,7 @@ namespace UpdateNIID.Web
             // GridView1.DataBind();
             if (txtStartDate.Text != "" && txtEndDate.Text != "")
             {
-                GetVehicleDateails(CheckDate(txtStartDate.Text), CheckDate(txtEndDate.Text));
+                GetVehicleDateails(CheckDate(txtStartDate.Text), CheckDate(txtEndDate.Text), RadioButtonList1.SelectedValue);
             }
             else
             {
@@ -109,10 +109,10 @@ namespace UpdateNIID.Web
             }
         }
 
-        protected void GetVehicleDateails(string sDate, string eDate)
+        protected void GetVehicleDateails(string sDate, string eDate, string status)
         {
             _dt = new DataTable();
-            _dt = motorsRepo.GetMotorDetailsDt(sDate, eDate);
+            _dt = motorsRepo.GetMotorDetailsDt(sDate, eDate, status);
 
             int cU = 0;
             int cP = 0;
@@ -199,7 +199,7 @@ namespace UpdateNIID.Web
 
             if (txtStartDate.Text != "" && txtEndDate.Text != "")
             {
-                GetVehicleDateails(CheckDate(txtStartDate.Text), CheckDate(txtEndDate.Text));
+                GetVehicleDateails(CheckDate(txtStartDate.Text), CheckDate(txtEndDate.Text), RadioButtonList1.SelectedValue);
             }
             else
             {

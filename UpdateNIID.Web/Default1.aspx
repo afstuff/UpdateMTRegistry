@@ -66,9 +66,9 @@
                     <asp:Label runat="server" Text="Show:"></asp:Label>
 
                     <asp:RadioButtonList ID="RadioButtonList1" runat="server" AutoPostBack="True" RepeatDirection="Horizontal">
-                        <asp:ListItem Selected="True" Value="0">All&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;</asp:ListItem>
-                        <asp:ListItem Value="1">Successful&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;</asp:ListItem>
-                        <asp:ListItem Value="2">Failed&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;</asp:ListItem>
+                        <asp:ListItem Selected="True" Value="A">All&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;</asp:ListItem>
+                        <asp:ListItem Value="S">Successful&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;</asp:ListItem>
+                        <asp:ListItem Value="F">Failed&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;</asp:ListItem>
                     </asp:RadioButtonList>
                 </div>
                 <div class="pull-right form-group-sm">
@@ -120,7 +120,7 @@
                             <RowStyle Font-Names="century gothic" Font-Size="10pt" Height="25px" HorizontalAlign="Left" VerticalAlign="Middle"></RowStyle>
                             <SelectedRowStyle BackColor="LightCyan" ForeColor="DarkBlue" Font-Bold="true" />
                         </asp:GridView>
-                        <asp:Timer ID="Timer1" runat="server" Interval="60000" OnTick="Timer1_Tick" Enabled="False" />
+                        <asp:Timer ID="Timer1" runat="server" Interval="60000" OnTick="Timer1_Tick" Enabled="True" />
                     </ContentTemplate>
                 </asp:UpdatePanel>
                 <asp:UpdateProgress ID="UpdateProgress1" runat="server"
@@ -132,13 +132,13 @@
                     </ProgressTemplate>
                 </asp:UpdateProgress>
             </div>
-        </div>
-        <br />
-        <div class="container">
-            <div class="row">
-                <asp:Button runat="server" ID="uploadBtn" Text="Update" CssClass="btn btn-danger btn-sm pull-right" Style="margin-right: 15px !important;" OnClick="DoUpdate" />
+            <br />
+             <div class="row">
+                <asp:Button runat="server" ID="uploadBtn" Text="Update" CssClass="btn btn-danger btn-sm pull-right" Style="margin-right: 0 !important;" OnClick="DoUpdate" />
             </div>
         </div>
+        
+        
     </form>
 </body>
 </html>
