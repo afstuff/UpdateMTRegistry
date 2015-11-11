@@ -34,6 +34,7 @@
     <property name="Status" column="NIID_Status" length="1" />
     <property name="ReturnMessage" column="NIID_ReturnMessage" length="250" />
     <property name="ProcessDate" column="NIID_ProcessDate" type="datetime" />
+    <property name="UploadDate" column="NIID_UploadDate" type="date" />
 
   </class>
 </hibernate-mapping>

@@ -20,25 +20,27 @@ namespace UpdateNIID.Console
         {
             
             absData = new MotorDetailsRepository();
+            MotorDetailsOnline mdo = new MotorDetailsOnline();
             absMsg = new MessageLog();
-            //absData.createSchema();
+           
           
 
             IList<MotorDetailsOnline> MotorData = absData.MotorDetails();
             Int64 cnt = 0;
             string m;
+            string returnvalue;
             try {
                 foreach (MotorDetailsOnline md in MotorData)
                 {
                     if (md.Status != "P") 
                     {
-                        string returnvalue = req.Vehicle_Policy_Push(md.Username, md.Password, md.NiaNaicomID, md.PolicyNo,
+                         returnvalue = req.Vehicle_Policy_Push(md.Username, md.Password, md.NiaNaicomID, md.PolicyNo,
                            md.InsuredName, md.ContactAddress, md.GSMNo, md.Email, md.EffectiveCoverDate, md.ExpirationDate, md.TypeOfCover, md.VehicleCategory,
                            md.EngineNo, md.ChasisNo, md.VehicleColor, md.YearofMake, md.VehicleMake, md.RegistrationNo, "", md.VehicleType, md.EngineCapacity,
                            md.VehicleModel, md.SumAssured, md.Premium, md.CoverNoteNo, md.CertificateNo, md.GeographicalZone);
 
 
-                        if (returnvalue == "Successful")
+                        if (returnvalue == "Active Policy in force!")
                         {
                             cnt = cnt + 1;
                             md.Status = "P";
@@ -46,6 +48,7 @@ namespace UpdateNIID.Console
                         }
                         md.ReturnMessage = returnvalue;
                         absData.Save(md);
+                        mdo = (MotorDetailsOnline) md;
 
                     }
 
@@ -56,15 +59,12 @@ namespace UpdateNIID.Console
 
             }
             catch(Exception x){
-                absMsg.MsgLog( "Error!: " + x.Message);
+               absMsg.MsgLog( "Error!: " + x.Message);
+                mdo.ReturnMessage = x.Message;
+                absData.Save(mdo);
             
             }
           }
-
-
-
-            //Console.Write("Wow, NIID here I come!");
-            //Console.Read();
         }
 
 

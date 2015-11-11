@@ -37,6 +37,7 @@ namespace UpdateNIID.Model
         public virtual string Status { get; set; }
         public virtual string ReturnMessage { get; set; }
         public virtual DateTime ProcessDate { get; set; }
+        public virtual DateTime UploadDate { get; set; }
 
 
     }

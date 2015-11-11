@@ -139,16 +139,16 @@ namespace UpdateNIID.Data
             string query;
             if (status == "S")
             {
-                query = "SELECT * FROM NIID_MotorDetails_Online where (NIID_Status = 'P' ) AND (NIID_ProcessDate BETWEEN '" + startDate + "' AND '" + endDate + "')";
+                query = "SELECT * FROM NIID_MotorDetails_Online where (NIID_Status = 'P' ) AND (NIID_UploadDate BETWEEN '" + startDate + "' AND '" + endDate + "')";
 
             }
             else if (status == "F")
             {
-                query = "SELECT * FROM NIID_MotorDetails_Online where (NIID_Status = 'A' ) AND (NIID_ProcessDate BETWEEN '" + startDate + "' AND '" + endDate + "')";
+                query = "SELECT * FROM NIID_MotorDetails_Online where (NIID_Status = 'A' ) AND (NIID_UploadDate BETWEEN '" + startDate + "' AND '" + endDate + "')";
             }
             else
             {
-                query = "SELECT * FROM NIID_MotorDetails_Online where NIID_ProcessDate BETWEEN '" + startDate + "' AND '" + endDate + "'";
+                query = "SELECT * FROM NIID_MotorDetails_Online where NIID_UploadDate BETWEEN '" + startDate + "' AND '" + endDate + "'";
 
             }
 
